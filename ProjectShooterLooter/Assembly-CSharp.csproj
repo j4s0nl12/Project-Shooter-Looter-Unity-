@@ -60,16 +60,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Bullet.cs" />
     <Compile Include="Assets\Scripts\Gun.cs" />
-    <Compile Include="Assets\Scripts\LevelGeneration.cs" />
     <Compile Include="Assets\Scripts\LevelGenerator.cs" />
-    <Compile Include="Assets\Scripts\MapRoomSpriteSelector.cs" />
-    <Compile Include="Assets\Scripts\MapSpriteSelector.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
     <Compile Include="Assets\Scripts\Room.cs" />
-    <Compile Include="Assets\Scripts\Room_Tutorial.cs" />
     <Compile Include="Assets\Scripts\RoomManager.cs" />
-    <Compile Include="Assets\Scripts\UtilityBehaviors.cs" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>C:/Users/Jason/Desktop/Project Shooter Looter (Unity)/ProjectShooterLooter/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>

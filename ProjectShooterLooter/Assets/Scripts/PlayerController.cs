@@ -8,6 +8,8 @@ public class PlayerController : MonoBehaviour
     public GameObject equippedGun;
     public GameObject bullet;
 
+    private Gun gunScript;
+
     private KeyCode upKey = KeyCode.W;
     private KeyCode downKey = KeyCode.S;
     private KeyCode leftKey = KeyCode.A;
@@ -23,7 +25,10 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        if(equippedGun != null)
+        {
+            gunScript = equippedGun.GetComponent<Gun>();
+        }
     }
 
     // Update is called once per frame
@@ -60,7 +65,10 @@ public class PlayerController : MonoBehaviour
 
         if (isShootKeyDown)
         {
-            //bleh
+            if(equippedGun != null)
+            {
+                gunScript.fire();
+            }
         }
 
         if (Input.GetKey(upKey))
