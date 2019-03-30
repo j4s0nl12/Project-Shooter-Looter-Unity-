@@ -20,6 +20,8 @@ public enum Rarity
 
 public class Gun : MonoBehaviour
 {
+    private static float MAX_DEGREE_OF_FIRING = 45;
+
     private GunClass gunClass;
 
     private Rarity rarity;
@@ -35,6 +37,7 @@ public class Gun : MonoBehaviour
     //Always round down
     private int damage;     //damage per bullet
     private int fireRate;   //bullets per sec
+    private float bulletSpd;//bullets speed
     private float accuracy; //determines spread
     private float reloadSpd;//time it takes to reload
     private int magazine;   //how many bullets can be fired before reloading
@@ -48,7 +51,7 @@ public class Gun : MonoBehaviour
 
     void Start()
     {
-        init(GunClass.Pistol, Rarity.Common, 1, 2, 100, 3, 10);
+        init(GunClass.Pistol, Rarity.Common, 1, 30, 10, 100, 3, 1000);
     }
 
     private void Update()
@@ -61,13 +64,14 @@ public class Gun : MonoBehaviour
     }
 
     public void init(GunClass _gunClass, Rarity _rarity, int _damage, int _fireRate, 
-                     float _accuracy, float _reloadSpd, int _magazine)
+                     float _bulletSpd, float _accuracy, float _reloadSpd, int _magazine)
     {
         gunClass = _gunClass;
         rarity = _rarity;
         damage = _damage;
         fireRate = _fireRate;
-        accuracy = _accuracy;
+        bulletSpd = _bulletSpd;
+        accuracy = Mathf.Clamp(_accuracy, 0, 100);
         reloadSpd = _reloadSpd;
         magazine = _magazine;
 
@@ -89,13 +93,11 @@ public class Gun : MonoBehaviour
             lastFired = Time.time;
             currentMagazine--;
 
-            Vector3 dir = transform.up.normalized;
-            Debug.Log(dir);
-            //dir += new Vector3(0, 0, 0);
-            Bullet b = Instantiate(bullet, transform.position, Quaternion.identity).GetComponent<Bullet>();
-            b.init(dir, damage, 10);
-
-            Debug.Log("Pew: " + currentMagazine + "/" + magazine);
+            Bullet b = Instantiate(bullet, transform.position, transform.rotation).GetComponent<Bullet>();
+            float offset = (100 - accuracy)/100 * MAX_DEGREE_OF_FIRING;
+            b.transform.Rotate(new Vector3(0,0,1), Random.Range(-offset,offset));
+            Vector3 dir = b.transform.up;
+            b.init(dir, damage, bulletSpd);
         }else if(!isReloading && currentMagazine == 0)
         {
             reload();

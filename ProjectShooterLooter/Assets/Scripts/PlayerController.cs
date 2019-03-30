@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public GameObject controlledObject;
+    private Rigidbody2D rb2d;
     public GameObject equippedGun;
     public GameObject bullet;
 
@@ -29,6 +30,8 @@ public class PlayerController : MonoBehaviour
         {
             gunScript = equippedGun.GetComponent<Gun>();
         }
+
+        rb2d = controlledObject.GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -40,7 +43,8 @@ public class PlayerController : MonoBehaviour
 
         handleKeyInputs();
 
-        controlledObject.transform.position += (velocity.normalized) * speed * Time.deltaTime;
+        //controlledObject.transform.position += (velocity.normalized) * speed * Time.deltaTime
+
         SimpleBounds();
     }
 
@@ -73,20 +77,24 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKey(upKey))
         {
-            velocity.y = 1f;
+            //velocity.y = 1f;
+            rb2d.AddForce(Vector2.up * speed);
         }
         else if (Input.GetKey(downKey))
         {
-            velocity.y = -1f;
+            //velocity.y = -1f;
+            rb2d.AddForce(Vector2.down * speed);
         }
 
         if (Input.GetKey(leftKey))
         {
-            velocity.x = -1f;
+            //velocity.x = -1f;
+            rb2d.AddForce(Vector2.left * speed);
         }
         else if (Input.GetKey(rightKey))
         {
-            velocity.x = 1f;
+            //velocity.x = 1f;
+            rb2d.AddForce(Vector2.right * speed);
         }
     }
 
