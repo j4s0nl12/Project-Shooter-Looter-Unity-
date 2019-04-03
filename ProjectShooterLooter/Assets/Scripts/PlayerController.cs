@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
 
     private bool isShootKeyDown = false;
 
-    private Vector3 velocity = new Vector3();
+    //private Vector3 velocity = new Vector3();
     
     private float speed = 15f;
 
@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour
     {
         handleRotation_Mouse();
 
-        velocity = new Vector3();
+        //velocity = new Vector3();
 
         handleKeyInputs();
 
@@ -52,7 +52,7 @@ public class PlayerController : MonoBehaviour
     {
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector3 direction = (mousePos - controlledObject.transform.position).normalized;
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
         controlledObject.transform.rotation = Quaternion.Euler(0, 0, angle);
     }
 
